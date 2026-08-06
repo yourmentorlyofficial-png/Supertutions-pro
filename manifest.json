@@ -1,3 +1,4 @@
+
 {
   "name": "Supertutions",
   "short_name": "Supertutions",
@@ -5,7 +6,7 @@
   "scope": "/supertutions-pwa/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "theme_color": "#ff914d",
   "icons": [
     {
       "src": "icon-192.png",
