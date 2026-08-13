@@ -1,665 +1,1117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0, user-scalable=no">
+content="width=device-width, initial-scale=1.0">
 
-<link rel="manifest" href="manifest.json">
+<meta name="theme-color"
+content="#ff914d">
 
-<title>Supertutions</title>
+<title>SuperTutions</title>
+
 
 <style>
 
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #fffaf0;
-    color: #222;
-    overflow-x: hidden;
+
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff7f0,
+      #f4f8ff
+    );
+
+  min-height: 100vh;
+
+  overflow: hidden;
 }
 
+
 /* =========================
-   MAIN APP
+   APP
 ========================= */
 
 .app {
-    min-height: 100vh;
-    padding: 30px 20px;
+
+  min-height: 100vh;
+
+  padding: 30px 22px;
+
+  position: relative;
 }
+
 
 .logo-title {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 800;
-    margin-top: 20px;
+
+  text-align: center;
+
+  font-size: 32px;
+
+  font-weight: 800;
+
+  margin-top: 35px;
+
+  color: #202020;
 }
 
-.subtitle {
-    text-align: center;
-    opacity: .6;
-    margin-top: 8px;
-}
-
-/* =========================
-   LOGIN AREA
-========================= */
-
-.login-area {
-    position: relative;
-    width: 100%;
-    max-width: 430px;
-    margin: 180px auto 0;
-}
-
-.login-card {
-    position: relative;
-    background: white;
-    border-radius: 30px;
-    padding: 35px 25px;
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.10);
-
-    z-index: 5;
-}
-
-.login-card h2 {
-    margin-top: 0;
-    font-size: 26px;
-}
-
-.input {
-    width: 100%;
-    padding: 16px;
-    margin: 8px 0;
-    border-radius: 15px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-}
-
-.login-button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 17px;
-    border: none;
-    border-radius: 18px;
-    background: #ff914d;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-}
 
 /* =========================
    OWL
 ========================= */
 
-.owl {
-    position: fixed;
+#owl {
 
-    width: 190px;
-    height: 190px;
+  position: fixed;
 
-    object-fit: contain;
+  width: 170px;
+  height: 170px;
 
-    left: 50%;
-    top: -240px;
+  object-fit: contain;
 
-    transform: translateX(-50%);
+  left: -200px;
 
-    z-index: 1000;
+  top: 35%;
 
-    pointer-events: none;
+  z-index: 100;
 
-    filter:
-        drop-shadow(0 15px 15px rgba(0,0,0,.12));
+  pointer-events: none;
 
-    transition:
-        top 900ms cubic-bezier(.22,1,.36,1),
-        left 900ms cubic-bezier(.22,1,.36,1),
-        width 700ms ease,
-        height 700ms ease,
-        transform 700ms cubic-bezier(.22,1,.36,1);
+  opacity: 1;
+
+  transition:
+
+    left 1.2s
+      cubic-bezier(.22,1,.36,1),
+
+    right 1.2s
+      cubic-bezier(.22,1,.36,1),
+
+    top 1.2s
+      cubic-bezier(.22,1,.36,1),
+
+    transform 1.2s
+      cubic-bezier(.22,1,.36,1),
+
+    opacity .35s ease;
 }
 
+
 /* =========================
-   SPEECH BUBBLE
+   FLOAT
 ========================= */
 
-.message {
-    position: fixed;
+.owl-float {
 
-    left: 50%;
-    top: 32%;
+  animation:
+    owlFloat 1.5s ease-in-out infinite;
+}
+
+
+@keyframes owlFloat {
+
+  0%,100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -10px;
+  }
+}
+
+
+/* =========================
+   CONFUSED
+========================= */
+
+.confused-motion {
+
+  animation:
+    confusedMotion .75s
+    ease-in-out infinite
+    alternate;
+}
+
+
+@keyframes confusedMotion {
+
+  from {
 
     transform:
-        translate(-50%, -50%)
-        scale(.7);
+      translateX(-50%)
+      rotate(-6deg)
+      translateY(0);
 
-    background: white;
+  }
 
-    padding: 17px 24px;
-
-    border-radius: 22px;
-
-    font-size: 19px;
-    font-weight: 700;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.15);
-
-    opacity: 0;
-
-    z-index: 1100;
-
-    transition:
-        opacity 350ms ease,
-        transform 500ms cubic-bezier(.22,1,.36,1);
-
-    white-space: nowrap;
-}
-
-.message.show {
-    opacity: 1;
+  to {
 
     transform:
-        translate(-50%, -50%)
-        scale(1);
+      translateX(-50%)
+      rotate(6deg)
+      translateY(-7px);
+
+  }
+
 }
 
+
 /* =========================
-   OWL SITTING ON LOGIN CARD
+   FLYING
 ========================= */
 
-.owl.sitting {
-    position: absolute;
+.flying {
 
-    left: 50%;
+  animation:
+    flying .5s
+    ease-in-out infinite
+    alternate;
+}
 
-    top: -150px;
 
-    width: 150px;
-    height: 150px;
+@keyframes flying {
+
+  from {
+    margin-top: -5px;
+  }
+
+  to {
+    margin-top: 7px;
+  }
+
+}
+
+
+/* =========================
+   BIG ZOOM AFTER LOGIN
+========================= */
+
+.login-zoom {
+
+  animation:
+    loginZoom .65s
+    cubic-bezier(.22,1,.36,1);
+}
+
+
+@keyframes loginZoom {
+
+  0% {
 
     transform:
-        translateX(-50%)
-        rotate(-2deg);
+      translateX(-50%)
+      scale(.72);
 
-    z-index: 20;
+  }
+
+  45% {
+
+    transform:
+      translateX(-50%)
+      scale(1.45);
+
+  }
+
+  100% {
+
+    transform:
+      translateX(-50%)
+      scale(.9);
+
+  }
+
 }
 
-/* tiny bounce while sitting */
-
-.owl.bounce {
-    animation: cuteBounce 2s infinite ease-in-out;
-}
-
-@keyframes cuteBounce {
-
-    0%,100% {
-        transform:
-            translateX(-50%)
-            translateY(0)
-            rotate(-2deg);
-    }
-
-    50% {
-        transform:
-            translateX(-50%)
-            translateY(-7px)
-            rotate(2deg);
-    }
-}
 
 /* =========================
-   DOUBT BUTTON
+   SPEECH
 ========================= */
 
-.doubt-button {
+#speech {
 
-    position: fixed;
+  position: fixed;
 
-    right: 18px;
-    bottom: 20px;
+  left: 50%;
 
-    width: 62px;
-    height: 62px;
+  top: 18%;
 
-    border-radius: 50%;
+  transform:
+    translateX(-50%)
+    scale(.75);
 
-    border: none;
+  background: white;
 
-    background: white;
+  padding: 16px 22px;
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.18);
+  border-radius: 22px;
 
-    padding: 7px;
+  box-shadow:
+    0 15px 45px
+    rgba(0,0,0,.14);
 
-    z-index: 2000;
+  font-size: 18px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-weight: 700;
 
-    transform: scale(0);
+  opacity: 0;
 
-    transition:
-        transform 600ms cubic-bezier(.22,1,.36,1);
+  transition:
+
+    opacity .35s ease,
+
+    transform .35s
+    cubic-bezier(.22,1,.36,1);
+
+  z-index: 150;
+
+  text-align: center;
+
+  max-width: 290px;
+
+  pointer-events: none;
 }
 
-.doubt-button.show {
-    transform: scale(1);
+
+#speech.show {
+
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    scale(1);
 }
 
-.doubt-button img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
 
 /* =========================
-   LITTLE PRESS EFFECT
+   LOGIN CARD
 ========================= */
 
-.login-button:active,
-.doubt-button:active {
+#loginCard {
 
-    transform: scale(.94);
+  position: fixed;
+
+  left: 50%;
+
+  bottom: 8%;
+
+  transform:
+    translateX(-50%)
+    translateY(50px)
+    scale(.96);
+
+  width:
+    calc(100% - 40px);
+
+  max-width: 390px;
+
+  background:
+    rgba(255,255,255,.86);
+
+  backdrop-filter:
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
+
+  padding: 28px;
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.12);
+
+  opacity: 0;
+
+  transition:
+
+    opacity .6s ease,
+
+    transform .7s
+    cubic-bezier(.22,1,.36,1);
+
+  z-index: 40;
+}
+
+
+#loginCard.show {
+
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    translateY(0)
+    scale(1);
+}
+
+
+#loginCard h2 {
+
+  margin-top: 0;
+
+  font-size: 28px;
+}
+
+
+#loginCard p {
+
+  color: #666;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+
+  width: 100%;
+
+  border: none;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  margin-top: 10px;
+
+  cursor: pointer;
+
+  background: #ff914d;
+
+  color: white;
+
+  box-shadow:
+    0 8px 20px
+    rgba(255,145,77,.30);
+
+  transition:
+    transform .15s ease;
+}
+
+
+button:active {
+
+  transform:
+    scale(.95);
+}
+
+
+.signup {
+
+  background: #f1f1f1;
+
+  color: #333;
+}
+
+
+/* =========================
+   OWL PERCHED ABOVE CARD
+========================= */
+
+#owl.perched {
+
+  width: 125px;
+
+  height: 125px;
+
+  z-index: 80;
+
+  animation:
+    perchFloat 2s
+    ease-in-out infinite;
+}
+
+
+@keyframes perchFloat {
+
+  0%,100% {
+
+    margin-top: 0;
+
+  }
+
+  50% {
+
+    margin-top: -5px;
+
+  }
 
 }
+
+
+/* =========================
+   DOUBT BALL
+========================= */
+
+#doubtBall {
+
+  position: fixed;
+
+  right: 18px;
+
+  bottom: 20px;
+
+  width: 64px;
+
+  height: 64px;
+
+  border-radius: 50%;
+
+  background: #ff914d;
+
+  box-shadow:
+    0 10px 30px
+    rgba(255,145,77,.4);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  opacity: 0;
+
+  transform: scale(.2);
+
+  transition:
+
+    opacity .35s ease,
+
+    transform .6s
+    cubic-bezier(.22,1,.36,1);
+
+  z-index: 200;
+}
+
+
+#doubtBall.show {
+
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+#doubtBall img {
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+
+#doubtBall.pop {
+
+  animation:
+    ballPop .7s
+    cubic-bezier(.22,1,.36,1);
+}
+
+
+@keyframes ballPop {
+
+  0% {
+
+    transform:
+      scale(.2)
+      rotate(-15deg);
+
+  }
+
+  60% {
+
+    transform:
+      scale(1.15)
+      rotate(5deg);
+
+  }
+
+  100% {
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
 
 /* =========================
    MOBILE
 ========================= */
 
-@media (max-width: 500px) {
+@media (max-height:700px) {
 
-    .owl {
-        width: 165px;
-        height: 165px;
-    }
+  #owl {
 
-    .message {
-        font-size: 17px;
-    }
+    width: 145px;
+    height: 145px;
+
+  }
+
+  #loginCard {
+
+    bottom: 5%;
+
+  }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
-    <div class="logo-title">
-        SUPERTUTIONS
-    </div>
-
-    <div class="subtitle">
-        Learn smarter. Grow together.
-    </div>
-
-
-    <div class="login-area">
-
-        <!-- OWL WILL SIT HERE -->
-        <img
-            id="owl"
-            class="owl"
-            src="confused.png"
-            alt="Supertutions Owl"
-        >
-
-        <!-- SPEECH -->
-        <div
-            id="message"
-            class="message">
-        </div>
-
-
-        <!-- LOGIN CARD -->
-
-        <div class="login-card">
-
-            <h2>Welcome 👋</h2>
-
-            <input
-                class="input"
-                id="username"
-                placeholder="Username"
-            >
-
-            <input
-                class="input"
-                id="password"
-                type="password"
-                placeholder="Password"
-            >
-
-            <button
-                class="login-button"
-                onclick="login()">
-
-                LOG IN
-
-            </button>
-
-        </div>
-
-    </div>
+  <div class="logo-title">
+    SuperTutions
+  </div>
 
 </div>
 
 
-<!-- DOUBT BUTTON -->
+<!-- OWL -->
 
-<button
-    id="doubtButton"
-    class="doubt-button">
+<img
+  id="owl"
+  src="happy-1.png"
+  alt="SuperTutions Owl"
+>
 
-    <img
-        src="icon.png"
-        alt="Doubts"
-    >
 
-</button>
+<!-- SPEECH -->
+
+<div id="speech"></div>
+
+
+<!-- LOGIN CARD -->
+
+<div id="loginCard">
+
+  <h2>
+    Welcome! 👋
+  </h2>
+
+  <p>
+    Sign in to continue your learning journey.
+  </p>
+
+  <button onclick="login()">
+    Login
+  </button>
+
+  <button
+    class="signup"
+    onclick="login()">
+
+    Sign Up
+
+  </button>
+
+</div>
+
+
+<!-- DOUBT BALL -->
+
+<div id="doubtBall">
+
+  <img
+    src="icon-512.png"
+    alt="Owl"
+  >
+
+</div>
 
 
 <script>
 
-/* =========================================
-   FILES
-========================================= */
 
-const HAPPY = "happy.png";
-const CONFUSED = "confused.png";
-const HAPPY2 = "happy2.png";
-
-
-/* =========================================
+/* =========================
    ELEMENTS
-========================================= */
+========================= */
 
-const owl = document.getElementById("owl");
-const message = document.getElementById("message");
-const doubtButton = document.getElementById("doubtButton");
+const owl =
+  document.getElementById("owl");
+
+const speech =
+  document.getElementById("speech");
+
+const loginCard =
+  document.getElementById("loginCard");
+
+const doubtBall =
+  document.getElementById("doubtBall");
 
 
-/* =========================================
-   SMALL HELPER
-========================================= */
+/* =========================
+   YOUR OWL FILES
+========================= */
 
-function wait(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}
+const HAPPY =
+  "happy-1.png";
 
+const CONFUSED =
+  "confused.png";
+
+const HAPPY2 =
+  "happy-2.png";
+
+
+/* =========================
+   LOGIN MEMORY
+========================= */
+
+const loggedIn =
+  localStorage.getItem(
+    "supertutions_logged_in"
+  ) === "true";
+
+
+/* =========================
+   SPEECH
+========================= */
 
 function say(text) {
 
-    message.textContent = text;
+  speech.innerText = text;
 
-    message.classList.add("show");
+  speech.classList.remove("show");
+
+  setTimeout(() => {
+
+    speech.classList.add("show");
+
+  }, 40);
 }
 
 
-function hideMessage() {
+function hideSpeech() {
 
-    message.classList.remove("show");
+  speech.classList.remove("show");
+
 }
 
 
-/* =========================================
-   FIRST-TIME USER
-========================================= */
+/* ==================================================
+   FIRST TIME USER
+================================================== */
 
-async function firstTimeExperience() {
+function firstTimeAnimation() {
 
-    /*
-       START:
-       confused owl comes from above
-    */
+
+  /* -------------------------
+     OWL STARTS OFFSCREEN
+  ------------------------- */
+
+  owl.src = HAPPY;
+
+  owl.style.left = "-200px";
+
+  owl.style.right = "auto";
+
+  owl.style.top = "35%";
+
+  owl.style.opacity = "1";
+
+
+  /* -------------------------
+     ENTER SCREEN
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.style.left = "50%";
+
+    owl.style.transform =
+      "translateX(-50%)";
+
+    owl.classList.add(
+      "owl-float"
+    );
+
+  }, 300);
+
+
+  /* -------------------------
+     CONFUSED
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.classList.remove(
+      "owl-float"
+    );
 
     owl.src = CONFUSED;
 
-    await wait(500);
+    owl.classList.add(
+      "confused-motion"
+    );
 
-    owl.style.top = "18%";
+    say("🤔");
 
-    await wait(1000);
-
-
-    /*
-       OWL LOOKS AT USER
-    */
-
-    say("Welcome to Supertutions! 👋");
-
-    await wait(2300);
-
-    hideMessage();
-
-    await wait(400);
+  }, 1600);
 
 
-    /*
-       HAPPY FACE
-    */
+  /* -------------------------
+     WELCOME
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.classList.remove(
+      "confused-motion"
+    );
 
     owl.src = HAPPY2;
 
-    await wait(500);
-
-
-    /*
-       FLY DOWN TO LOGIN CARD
-    */
-
-    owl.classList.add("sitting");
-
-    await wait(1000);
-
-
-    /*
-       LITTLE BOUNCE
-    */
-
-    owl.classList.add("bounce");
-
-
-    /*
-       REMEMBER THAT USER
-    */
-
-    localStorage.setItem(
-        "supertutionsVisited",
-        "true"
+    say(
+      "Welcome to SuperTutions! 🦉"
     );
+
+  }, 2900);
+
+
+  /* -------------------------
+     PREPARE TO FLY
+  ------------------------- */
+
+  setTimeout(() => {
+
+    hideSpeech();
+
+    owl.classList.add(
+      "flying"
+    );
+
+  }, 4500);
+
+
+  /* -------------------------
+     FLY TO LOGIN CARD
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.style.top =
+      "calc(92% - 185px)";
+
+    owl.style.transform =
+      "translateX(-50%) scale(.78)";
+
+  }, 4800);
+
+
+  /* -------------------------
+     SHOW LOGIN CARD
+  ------------------------- */
+
+  setTimeout(() => {
+
+    loginCard.classList.add(
+      "show"
+    );
+
+  }, 5400);
+
+
+  /* -------------------------
+     PERCH
+     
+     IMPORTANT:
+     The owl now STAYS HERE.
+     
+     It does NOT become the
+     doubt ball.
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.classList.remove(
+      "flying"
+    );
+
+    owl.classList.add(
+      "perched"
+    );
+
+    owl.style.top =
+      "calc(92% - 250px)";
+
+    owl.style.transform =
+      "translateX(-50%) scale(.72)";
+
+  }, 6200);
+
 }
 
 
-/* =========================================
-   RETURNING USER
-========================================= */
+/* ==================================================
+   USER LOGGED IN ALREADY
+================================================== */
 
-async function returningUserExperience() {
-
-    owl.src = HAPPY;
-
-    await wait(400);
-
-    /*
-       FLY IN
-    */
-
-    owl.style.top = "18%";
-
-    await wait(900);
+function returningAnimation() {
 
 
-    /*
-       WELCOME BACK
-    */
+  /* -------------------------
+     ENTER
+  ------------------------- */
 
-    say("Welcome back! 🦉");
+  owl.src = HAPPY2;
 
-    await wait(1800);
+  owl.style.left = "-200px";
 
-    hideMessage();
+  owl.style.right = "auto";
 
-    await wait(300);
+  owl.style.top = "35%";
 
-
-    /*
-       FLY TOWARD DOUBT BUTTON
-    */
-
-    owl.classList.add("returning");
+  owl.style.opacity = "1";
 
 
-    owl.style.top = "auto";
-    owl.style.left = "auto";
+  setTimeout(() => {
 
-    owl.style.right = "25px";
-    owl.style.bottom = "75px";
-
-
-    await wait(700);
-
-
-    /*
-       SHRINK
-    */
-
-    owl.style.width = "62px";
-    owl.style.height = "62px";
+    owl.style.left = "50%";
 
     owl.style.transform =
-        "translate(0,0) scale(.1)";
+      "translateX(-50%)";
+
+    owl.classList.add(
+      "owl-float"
+    );
+
+  }, 300);
 
 
-    await wait(500);
+  /* -------------------------
+     WELCOME BACK
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.classList.remove(
+      "owl-float"
+    );
+
+    say(
+      "Welcome back! 🦉"
+    );
+
+  }, 1700);
 
 
-    /*
-       DISAPPEAR
-    */
+  /* -------------------------
+     FLY TO CORNER
+  ------------------------- */
+
+  setTimeout(() => {
+
+    hideSpeech();
+
+    owl.classList.add(
+      "flying"
+    );
+
+    owl.style.left = "auto";
+
+    owl.style.right = "18px";
+
+    owl.style.top =
+      "calc(100% - 120px)";
+
+    owl.style.transform =
+      "scale(.42)";
+
+  }, 3200);
+
+
+  /* -------------------------
+     BECOME DOUBT BALL
+  ------------------------- */
+
+  setTimeout(() => {
 
     owl.style.opacity = "0";
 
+    owl.classList.remove(
+      "flying"
+    );
 
-    /*
-       SHOW DOUBT BUTTON
-    */
+    doubtBall.classList.add(
+      "show"
+    );
 
-    await wait(300);
+    doubtBall.classList.add(
+      "pop"
+    );
 
-    doubtButton.classList.add("show");
+  }, 4300);
+
 }
 
 
-/* =========================================
-   LOGIN
-========================================= */
+/* ==================================================
+   AFTER REAL LOGIN
+================================================== */
 
 function login() {
 
-    localStorage.setItem(
-        "supertutionsSignedIn",
-        "true"
+
+  /*
+    Remember that this user
+    has now logged in.
+  */
+
+  localStorage.setItem(
+    "supertutions_logged_in",
+    "true"
+  );
+
+
+  /*
+    Hide login card
+  */
+
+  loginCard.classList.remove(
+    "show"
+  );
+
+  hideSpeech();
+
+
+  /*
+    Remove perched animation
+  */
+
+  owl.classList.remove(
+    "perched"
+  );
+
+
+  /*
+    THIS IS THE IMPORTANT PART:
+    
+    The owl suddenly looks at
+    the user and ZOOMS toward
+    the screen.
+  */
+
+  owl.style.top = "45%";
+
+  owl.style.left = "50%";
+
+  owl.style.right = "auto";
+
+  owl.style.transform =
+    "translateX(-50%) scale(1)";
+
+
+  owl.classList.add(
+    "login-zoom"
+  );
+
+
+  /* -------------------------
+     THEN FLY TO CORNER
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.classList.remove(
+      "login-zoom"
     );
 
-    alert("Logged in! 🎉");
+    owl.classList.add(
+      "flying"
+    );
+
+    owl.style.left = "auto";
+
+    owl.style.right = "18px";
+
+    owl.style.top =
+      "calc(100% - 120px)";
+
+    owl.style.transform =
+      "scale(.42)";
+
+  }, 750);
+
+
+  /* -------------------------
+     BECOME DOUBT BALL
+  ------------------------- */
+
+  setTimeout(() => {
+
+    owl.style.opacity = "0";
+
+    owl.classList.remove(
+      "flying"
+    );
+
+    doubtBall.classList.add(
+      "show"
+    );
+
+    doubtBall.classList.add(
+      "pop"
+    );
+
+  }, 1700);
 
 }
 
 
-/* =========================================
-   START APP
-========================================= */
+/* ==================================================
+   START
+================================================== */
 
-async function startApp() {
+if (loggedIn) {
 
-    const hasVisited =
-        localStorage.getItem(
-            "supertutionsVisited"
-        );
+  /*
+    Already logged in:
+    Welcome back → circle
+  */
 
-    const signedIn =
-        localStorage.getItem(
-            "supertutionsSignedIn"
-        );
+  returningAnimation();
 
+} else {
 
-    /*
-       FIRST EVER OPEN
-    */
+  /*
+    New user:
+    Welcome → login → WAIT
+  */
 
-    if (!hasVisited) {
-
-        await firstTimeExperience();
-
-        return;
-    }
-
-
-    /*
-       RETURNING USER
-    */
-
-    if (signedIn) {
-
-        await returningUserExperience();
-
-        return;
-    }
-
-
-    /*
-       VISITED BUT NOT LOGGED IN
-       Keep owl on login card
-    */
-
-    owl.src = HAPPY2;
-
-    owl.classList.add("sitting");
-    owl.classList.add("bounce");
-
-}
-
-
-/* =========================================
-   RUN
-========================================= */
-
-window.addEventListener(
-    "load",
-    startApp
-);
-
-
-/* =========================================
-   SERVICE WORKER
-========================================= */
-
-if ("serviceWorker" in navigator) {
-
-    navigator.serviceWorker.register(
-        "./sw.js"
-    );
+  firstTimeAnimation();
 
 }
 
 </script>
 
 </body>
-</html>,
+
+</html>
