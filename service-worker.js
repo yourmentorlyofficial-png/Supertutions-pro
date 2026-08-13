@@ -1,4 +1,4 @@
-const CACHE_NAME = "supertutions-v2";
+const CACHE_NAME = "supertutions-v3";
 
 const APP_FILES = [
   "./",
