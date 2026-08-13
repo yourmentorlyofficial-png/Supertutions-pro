@@ -1,41 +1,665 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<link rel="manifest" href="manifest.json">
 
 <title>Supertutions</title>
 
-<meta name="theme-color" content="#ff914d">
+<style>
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fffaf0;
+    color: #222;
+    overflow-x: hidden;
+}
+
+/* =========================
+   MAIN APP
+========================= */
+
+.app {
+    min-height: 100vh;
+    padding: 30px 20px;
+}
+
+.logo-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 20px;
+}
+
+.subtitle {
+    text-align: center;
+    opacity: .6;
+    margin-top: 8px;
+}
+
+/* =========================
+   LOGIN AREA
+========================= */
+
+.login-area {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    margin: 180px auto 0;
+}
+
+.login-card {
+    position: relative;
+    background: white;
+    border-radius: 30px;
+    padding: 35px 25px;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.10);
+
+    z-index: 5;
+}
+
+.login-card h2 {
+    margin-top: 0;
+    font-size: 26px;
+}
+
+.input {
+    width: 100%;
+    padding: 16px;
+    margin: 8px 0;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 17px;
+    border: none;
+    border-radius: 18px;
+    background: #ff914d;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* =========================
+   OWL
+========================= */
+
+.owl {
+    position: fixed;
+
+    width: 190px;
+    height: 190px;
+
+    object-fit: contain;
+
+    left: 50%;
+    top: -240px;
+
+    transform: translateX(-50%);
+
+    z-index: 1000;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(0 15px 15px rgba(0,0,0,.12));
+
+    transition:
+        top 900ms cubic-bezier(.22,1,.36,1),
+        left 900ms cubic-bezier(.22,1,.36,1),
+        width 700ms ease,
+        height 700ms ease,
+        transform 700ms cubic-bezier(.22,1,.36,1);
+}
+
+/* =========================
+   SPEECH BUBBLE
+========================= */
+
+.message {
+    position: fixed;
+
+    left: 50%;
+    top: 32%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    background: white;
+
+    padding: 17px 24px;
+
+    border-radius: 22px;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.15);
+
+    opacity: 0;
+
+    z-index: 1100;
+
+    transition:
+        opacity 350ms ease,
+        transform 500ms cubic-bezier(.22,1,.36,1);
+
+    white-space: nowrap;
+}
+
+.message.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+/* =========================
+   OWL SITTING ON LOGIN CARD
+========================= */
+
+.owl.sitting {
+    position: absolute;
+
+    left: 50%;
+
+    top: -150px;
+
+    width: 150px;
+    height: 150px;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    z-index: 20;
+}
+
+/* tiny bounce while sitting */
+
+.owl.bounce {
+    animation: cuteBounce 2s infinite ease-in-out;
+}
+
+@keyframes cuteBounce {
+
+    0%,100% {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            translateY(-7px)
+            rotate(2deg);
+    }
+}
+
+/* =========================
+   DOUBT BUTTON
+========================= */
+
+.doubt-button {
+
+    position: fixed;
+
+    right: 18px;
+    bottom: 20px;
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background: white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+    padding: 7px;
+
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: scale(0);
+
+    transition:
+        transform 600ms cubic-bezier(.22,1,.36,1);
+}
+
+.doubt-button.show {
+    transform: scale(1);
+}
+
+.doubt-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* =========================
+   LITTLE PRESS EFFECT
+========================= */
+
+.login-button:active,
+.doubt-button:active {
+
+    transform: scale(.94);
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .owl {
+        width: 165px;
+        height: 165px;
+    }
+
+    .message {
+        font-size: 17px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <div id="app">
+<div class="app">
 
-    <div id="owlIntro">
-      <img id="owl" src="icon-512.png">
-
-      <div id="owlSpeech"></div>
+    <div class="logo-title">
+        SUPERTUTIONS
     </div>
 
-    <div id="loginCard">
-      <h1>Welcome to SuperTutions</h1>
-      <p>Your smarter study space.</p>
-
-      <button id="loginBtn">LOG IN</button>
+    <div class="subtitle">
+        Learn smarter. Grow together.
     </div>
 
-    <button id="doubtBall">?</button>
 
-  </div>
+    <div class="login-area">
 
-  <script src="app.js"></script>
+        <!-- OWL WILL SIT HERE -->
+        <img
+            id="owl"
+            class="owl"
+            src="confused.png"
+            alt="Supertutions Owl"
+        >
+
+        <!-- SPEECH -->
+        <div
+            id="message"
+            class="message">
+        </div>
+
+
+        <!-- LOGIN CARD -->
+
+        <div class="login-card">
+
+            <h2>Welcome 👋</h2>
+
+            <input
+                class="input"
+                id="username"
+                placeholder="Username"
+            >
+
+            <input
+                class="input"
+                id="password"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="login-button"
+                onclick="login()">
+
+                LOG IN
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DOUBT BUTTON -->
+
+<button
+    id="doubtButton"
+    class="doubt-button">
+
+    <img
+        src="icon.png"
+        alt="Doubts"
+    >
+
+</button>
+
+
+<script>
+
+/* =========================================
+   FILES
+========================================= */
+
+const HAPPY = "happy.png";
+const CONFUSED = "confused.png";
+const HAPPY2 = "happy2.png";
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const owl = document.getElementById("owl");
+const message = document.getElementById("message");
+const doubtButton = document.getElementById("doubtButton");
+
+
+/* =========================================
+   SMALL HELPER
+========================================= */
+
+function wait(ms) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
+}
+
+
+function say(text) {
+
+    message.textContent = text;
+
+    message.classList.add("show");
+}
+
+
+function hideMessage() {
+
+    message.classList.remove("show");
+}
+
+
+/* =========================================
+   FIRST-TIME USER
+========================================= */
+
+async function firstTimeExperience() {
+
+    /*
+       START:
+       confused owl comes from above
+    */
+
+    owl.src = CONFUSED;
+
+    await wait(500);
+
+    owl.style.top = "18%";
+
+    await wait(1000);
+
+
+    /*
+       OWL LOOKS AT USER
+    */
+
+    say("Welcome to Supertutions! 👋");
+
+    await wait(2300);
+
+    hideMessage();
+
+    await wait(400);
+
+
+    /*
+       HAPPY FACE
+    */
+
+    owl.src = HAPPY2;
+
+    await wait(500);
+
+
+    /*
+       FLY DOWN TO LOGIN CARD
+    */
+
+    owl.classList.add("sitting");
+
+    await wait(1000);
+
+
+    /*
+       LITTLE BOUNCE
+    */
+
+    owl.classList.add("bounce");
+
+
+    /*
+       REMEMBER THAT USER
+    */
+
+    localStorage.setItem(
+        "supertutionsVisited",
+        "true"
+    );
+}
+
+
+/* =========================================
+   RETURNING USER
+========================================= */
+
+async function returningUserExperience() {
+
+    owl.src = HAPPY;
+
+    await wait(400);
+
+    /*
+       FLY IN
+    */
+
+    owl.style.top = "18%";
+
+    await wait(900);
+
+
+    /*
+       WELCOME BACK
+    */
+
+    say("Welcome back! 🦉");
+
+    await wait(1800);
+
+    hideMessage();
+
+    await wait(300);
+
+
+    /*
+       FLY TOWARD DOUBT BUTTON
+    */
+
+    owl.classList.add("returning");
+
+
+    owl.style.top = "auto";
+    owl.style.left = "auto";
+
+    owl.style.right = "25px";
+    owl.style.bottom = "75px";
+
+
+    await wait(700);
+
+
+    /*
+       SHRINK
+    */
+
+    owl.style.width = "62px";
+    owl.style.height = "62px";
+
+    owl.style.transform =
+        "translate(0,0) scale(.1)";
+
+
+    await wait(500);
+
+
+    /*
+       DISAPPEAR
+    */
+
+    owl.style.opacity = "0";
+
+
+    /*
+       SHOW DOUBT BUTTON
+    */
+
+    await wait(300);
+
+    doubtButton.classList.add("show");
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+function login() {
+
+    localStorage.setItem(
+        "supertutionsSignedIn",
+        "true"
+    );
+
+    alert("Logged in! 🎉");
+
+}
+
+
+/* =========================================
+   START APP
+========================================= */
+
+async function startApp() {
+
+    const hasVisited =
+        localStorage.getItem(
+            "supertutionsVisited"
+        );
+
+    const signedIn =
+        localStorage.getItem(
+            "supertutionsSignedIn"
+        );
+
+
+    /*
+       FIRST EVER OPEN
+    */
+
+    if (!hasVisited) {
+
+        await firstTimeExperience();
+
+        return;
+    }
+
+
+    /*
+       RETURNING USER
+    */
+
+    if (signedIn) {
+
+        await returningUserExperience();
+
+        return;
+    }
+
+
+    /*
+       VISITED BUT NOT LOGGED IN
+       Keep owl on login card
+    */
+
+    owl.src = HAPPY2;
+
+    owl.classList.add("sitting");
+    owl.classList.add("bounce");
+
+}
+
+
+/* =========================================
+   RUN
+========================================= */
+
+window.addEventListener(
+    "load",
+    startApp
+);
+
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
+
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register(
+        "./sw.js"
+    );
+
+}
+
+</script>
 
 </body>
-</html>
+</html>,
