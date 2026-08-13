@@ -2,8 +2,8 @@
 {
   "name": "Supertutions",
   "short_name": "Supertutions",
-  "start_url": "/supertutions-pwa/",
-  "scope": "/supertutions-pwa/",
+  "start_url": "./",
+"scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ff914d",
