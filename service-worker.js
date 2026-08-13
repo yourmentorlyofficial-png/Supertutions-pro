@@ -1,11 +1,14 @@
-const CACHE_NAME = "supertutions-v1";
+const CACHE_NAME = "supertutions-v2";
 
 const APP_FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./manifest.json"
+  "./login.html",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {
